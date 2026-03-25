@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AvaloniaProject">
+    <option name="projectPerEditor">
+      <map>
+        <entry key="NetworkPortScanner/App.axaml" value="NetworkPortScanner/NetworkPortScanner.csproj" />
+        <entry key="NetworkPortScanner/MainWindow.axaml" value="NetworkPortScanner/NetworkPortScanner.csproj" />
+      </map>
+    </option>
+  </component>
+</project>
