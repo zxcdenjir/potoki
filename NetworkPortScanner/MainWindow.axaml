@@ -1,0 +1,60 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:networkPortScanner="clr-namespace:NetworkPortScanner"
+        mc:Ignorable="d" Width="1600" Height="900"
+        x:Class="NetworkPortScanner.MainWindow"
+        WindowStartupLocation="CenterScreen"
+        Title="NetworkPortScanner">
+    <Grid RowDefinitions="100, *" ShowGridLines="False">
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" Spacing="30" VerticalAlignment="Center"
+                    Orientation="Horizontal">
+            <TextBox Name="IpBox" Watermark="IP адрес" Width="165" />
+            <StackPanel Orientation="Horizontal" Spacing="5">
+                <TextBox Watermark="Порт1" Width="100" Name="Port1Box"/>
+                <TextBlock Text=":" VerticalAlignment="Center" />
+                <TextBox Watermark="Порт2" Width="100" Name="Port2Box"/>
+            </StackPanel>
+            <TextBox Watermark="Количество потоков" Width="165" Name="PotokiCountBox" />
+            <Button Content="Добавить в список" Background="Coral" Click="Button_OnClick" />
+            <Button Content="Запуск" Background="LimeGreen" Click="StartButton_OnClick" />
+            <TextBlock Name="TextBlock"/>
+        </StackPanel>
+
+        <ItemsControl Name="PotokiListBox" Grid.Row="1" Width="800">
+            <ItemsControl.ItemTemplate>
+                <DataTemplate x:DataType="networkPortScanner:Potok">
+                    <Border HorizontalAlignment="Stretch" CornerRadius="25" BorderBrush="Black" BorderThickness="3"
+                            Padding="20" Margin="0 0 0 20">
+                        <Grid RowDefinitions="*,*,*,Auto" RowSpacing="10">
+                            <TextBlock Grid.Row="0" Text="{Binding Ip, StringFormat='Адрес: {0}'}" />
+                            
+                            <StackPanel Grid.Row="1" Orientation="Horizontal">
+                                <TextBlock>
+                                    <TextBlock.Text>
+                                        <MultiBinding StringFormat="Порты: {0}:{1}">
+                                            <Binding Path="Port1" />
+                                            <Binding Path="Port2" />
+                                        </MultiBinding>
+                                    </TextBlock.Text>
+                                </TextBlock>
+                            </StackPanel>
+                            
+                            <StackPanel Grid.Row="2">
+                                <ProgressBar Value="{Binding ProgressBarValue, UpdateSourceTrigger=PropertyChanged}"
+                                             Minimum="1"
+                                             Maximum="{Binding ProgressBarMaxValue}"
+                                             Background="{Binding ColorBrush}"
+                                             ShowProgressText="True"
+                                             Margin="0 5"
+                                             />
+                            </StackPanel>
+                            <TextBlock Grid.Row="3" Text="{Binding FindedPorts, StringFormat='Найденные порты: {0}', UpdateSourceTrigger=PropertyChanged}" TextWrapping="Wrap"/>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ItemsControl.ItemTemplate>
+        </ItemsControl>
+    </Grid>
+</Window>
