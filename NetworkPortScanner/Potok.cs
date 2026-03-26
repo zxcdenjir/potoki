@@ -18,9 +18,11 @@ public class Potok(string ip, int port1, int port2, int count)
 
     public string FindedPorts { get; set; } = string.Empty;
     
-    public int ProgressBarValue { get; set; } = 0;
+    public int ProgressBarValue { get; set; } = port1;
+    
+    public int ProgressBarMinValue { get; set; } = port1;
 
-    public int ProgressBarMaxValue { get; private set; } = Math.Abs(port2 - port1);
+    public int ProgressBarMaxValue { get; private set; } = port2;
 
     public SolidColorBrush ColorBrush { get; set; } = new SolidColorBrush(GetRandomColor());
 
@@ -32,5 +34,11 @@ public class Potok(string ip, int port1, int port2, int count)
             (byte)random.Next(256), 
             (byte)random.Next(256)
         );
+    }
+
+    public void Clear()
+    {
+        ProgressBarValue = Port1;
+        FindedPorts = string.Empty;
     }
 }
